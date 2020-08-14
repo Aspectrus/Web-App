@@ -1,6 +1,9 @@
 package webapp;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 public class InputValidator {
 
@@ -8,9 +11,28 @@ public class InputValidator {
     private List<String> AllIsoCodes;
 
 
+
     InputValidator() {
+
+        Properties properties = GetProperties();
+        String path = properties.getProperty("JsonPath");
         JsonFileReader jsonread = new JsonFileReader();
-        AllIsoCodes = jsonread.GetISONames("../Countries-ISO-Codes.json");
+        AllIsoCodes = jsonread.GetISONames(path);
+
+    }
+
+    Properties GetProperties()
+    {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream input = classLoader.getResourceAsStream("foo.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+
     }
     boolean ValidateInputCodes(String CountryCode, String BankCode)
     {

@@ -1,10 +1,7 @@
 package webapp;
 
-import java.io.Console;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 
@@ -15,13 +12,16 @@ import org.json.simple.parser.JSONParser;
 
 class JsonFileReader {
 
+
     List<String> GetISONames(String path)
     {
         ArrayList<String> AllIsoCodes = new ArrayList <String>();
 
         try {
+
             JSONParser parser = new JSONParser();
-            JSONArray AllCountriesData = (JSONArray)parser.parse(new FileReader(path));
+            JSONArray AllCountriesData = (JSONArray)parser.parse(GetJsonFileReader(path));
+
            for (Object CountryData : AllCountriesData)
             {
                 JSONObject Country = (JSONObject) CountryData;
@@ -33,6 +33,15 @@ class JsonFileReader {
 
         }
         return AllIsoCodes;
+    }
+
+    Reader GetJsonFileReader(String path)
+    {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream JsonStream = classLoader.getResourceAsStream(path);
+        Reader targetReader = new InputStreamReader(JsonStream);
+        return  targetReader;
+
     }
 
 }

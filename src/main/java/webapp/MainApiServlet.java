@@ -13,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns="/Submit")
 public class MainApiServlet extends HttpServlet {
+    JSONParser parser = new JSONParser();
     StringFormatter stringProcessor = new StringFormatter();
     InputValidator inputValidator = new InputValidator();
 

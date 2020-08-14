@@ -24,7 +24,7 @@ public class MainApiServlet extends HttpServlet {
          String bankcode = request.getParameter("bankcode");
          String countrycode = request.getParameter("countrycode");
          boolean ValidationStatus = inputValidator.ValidateInputCodes(countrycode,bankcode);
-         if(!ValidationStatus) response.sendError(404);
+         if(!ValidationStatus) response.sendError(400);
          else {
              response.setContentType("text/plain");
              String answer = stringProcessor.FormatInput(bankcode, countrycode);

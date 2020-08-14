@@ -15,7 +15,7 @@ public class StringFormatter {
         return SameCharacterString;
     }
 
-    static String FormatInput(String BankCode, String CountryCode) {
+    static public String FormatInput(String BankCode, String CountryCode) {
 
             String result = CountryCode+" ";
             String temp="";

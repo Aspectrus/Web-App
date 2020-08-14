@@ -12,7 +12,7 @@ public class InputValidator {
 
 
 
-    InputValidator() {
+    public InputValidator() {
 
         Properties properties = GetProperties();
         String path = properties.getProperty("JsonPath");
@@ -34,7 +34,7 @@ public class InputValidator {
         return properties;
 
     }
-    boolean ValidateInputCodes(String CountryCode, String BankCode)
+    public boolean ValidateInputCodes(String CountryCode, String BankCode)
     {
         Boolean CountryCodeCheck = ValidateCountryCode(CountryCode);
         Boolean BankCodeCheck = ValidateBankCode(BankCode);

@@ -2,51 +2,63 @@ package webapp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class StringFormatter {
 
-    static String FormatRepeatingCharacters(int count, char character) {
+    static String FormatRepeatingCharacters(int[] RepeatingIndexes, String BankCode) {
 
-        String SameCharacterString = new String(new char[count]).replace('\0', character);
-        SameCharacterString = "("+SameCharacterString+")";
-        return SameCharacterString;
+        if((RepeatingIndexes[1]-RepeatingIndexes[0])<2) return BankCode;
+        String result = BankCode.substring(0,RepeatingIndexes[0])+
+                "(" +
+                BankCode.substring(RepeatingIndexes[0],RepeatingIndexes[1])+
+                ")"+BankCode.substring(RepeatingIndexes[1]);
+
+        return result;
     }
 
-    static public String FormatInput(String BankCode, String CountryCode) {
+    int[] FindMostRepeatingCharacterIndexes(String BankCode) {
 
-            String result = CountryCode+" ";
-            String temp="";
-            char leftchar = 0, rightchar;
-            int left = 0, right = 0, count =0;
-            while(right<BankCode.length())
+
+        int[] MostRepeatingIndexes = {0,0};
+
+        char leftchar , rightchar;
+        int maxCount=1 , j;
+        for(int i = 0; i<BankCode.length(); i++)
+        {
+            int count = 1;
+            leftchar = BankCode.charAt(i);
+
+            for(j=i+1; j<BankCode.length(); j++)
             {
-                leftchar = BankCode.charAt(left);
-                rightchar = BankCode.charAt(right);
-
-                if(leftchar==rightchar)
+                rightchar = BankCode.charAt(j);
+                if(leftchar !=rightchar)
                 {
-                    count++;
-                    right++;
+                    break;
                 }
-                else if(count>1)
-                {
-                    temp +=FormatRepeatingCharacters(count, leftchar);
-                    count = 0;
-                    left = right;
-                }
-                else
-                {
-                    temp+=leftchar;
-                    left++;
-                    right++;
-                }
+                count++;
             }
-            if(count>1) temp +=FormatRepeatingCharacters(count, BankCode.charAt(left));
-            else temp+=BankCode.charAt(left);
+            if(count>maxCount)
+            {
+                maxCount =count;
+                MostRepeatingIndexes[0]=i;
+                MostRepeatingIndexes[1]=j;
+            }
 
-            return result + temp;
         }
+        return MostRepeatingIndexes;
+
+    }
+
+    public String FormatInput(String BankCode, String CountryCode) {
+
+        String result = CountryCode+" ";
+        int[] MostRepeatingIndexes = FindMostRepeatingCharacterIndexes(BankCode);
+        String FormattedBankCode = FormatRepeatingCharacters(MostRepeatingIndexes, BankCode);
+        return result + FormattedBankCode;
+        }
+
     }

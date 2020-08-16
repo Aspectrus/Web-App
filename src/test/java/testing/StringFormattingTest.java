@@ -1,5 +1,3 @@
-package testing;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -24,14 +22,15 @@ public class StringFormattingTest {
     public static Collection<Object[]> data() {
         Object[][] data = new Object[][] { { "LT" , "05556894", "LT 0(555)6894" },
                 { "US", "15897", "US 15897" },
-                { "DE", "15585568977", "DE 1(55)8(55)689(77)" } };
+                { "DE", "15585568977", "DE 1(55)85568977" },
+                { "DE", "7777", "DE (7777)" }};
         return Arrays.asList(data);
     }
 
     @Test
     public void testIfFormattingIsDoneCorrectly() {
         StringFormatter stringFormatter = new StringFormatter();
-        assertEquals(Result, StringFormatter.FormatInput(BankCode, CountryCode));
+        assertEquals(Result, stringFormatter.FormatInput(BankCode, CountryCode));
     }
 
 }

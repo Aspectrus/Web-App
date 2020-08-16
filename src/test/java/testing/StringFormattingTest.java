@@ -20,9 +20,9 @@ public class StringFormattingTest {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { "LT" , "05556894", "LT 0(555)6894" },
+        Object[][] data = new Object[][] { { "LT" , "055568994444", "LT 05556899(4444)" },
                 { "US", "15897", "US 15897" },
-                { "DE", "15585568977", "DE 1(55)85568977" },
+                { "DE", "1558555689777", "DE 1558(555)689(777)" },
                 { "DE", "7777", "DE (7777)" }};
         return Arrays.asList(data);
     }

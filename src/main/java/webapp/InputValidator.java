@@ -50,7 +50,7 @@ public class InputValidator {
     }
     private Boolean ValidateBankCode(String BankCode)
     {
-        if(BankCode.length()<2&&BankCode.length()>20) return false;
+        if(BankCode.length()<2||BankCode.length()>20) return false;
         try {
             Double.parseDouble(BankCode);
             return true;

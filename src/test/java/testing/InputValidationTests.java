@@ -4,22 +4,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import webapp.InputValidator;
-import webapp.StringFormatter;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class InputValidationTests {
 
     @RunWith(Parameterized.class)
     public static class ValidInputTest {
-        @Parameterized.Parameter(0)
-        public String CountryCode;
+        @Parameterized.Parameter()
+        public String countryCode;
         @Parameterized.Parameter(1)
-        public String BankCode;
+        public String bankCode;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
@@ -32,15 +32,15 @@ public class InputValidationTests {
         @Test
         public void testValidFullCode() {
             InputValidator inputValidator = new InputValidator();
-            assertEquals(inputValidator.ValidateInputCodes(CountryCode, BankCode), true);
+            assertTrue(inputValidator.validateInputCodes(countryCode, bankCode));
         }
     }
     @RunWith(Parameterized.class)
     public static class InValidInputTest {
-        @Parameterized.Parameter(0)
-        public String CountryCode;
+        @Parameterized.Parameter()
+        public String countryCode;
         @Parameterized.Parameter(1)
-        public String BankCode;
+        public String bankCode;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
@@ -53,7 +53,7 @@ public class InputValidationTests {
         @Test
         public void testInvalidFullCode() {
             InputValidator inputValidator = new InputValidator();
-            assertEquals(inputValidator.ValidateInputCodes(CountryCode, BankCode), false);
+            assertFalse(inputValidator.validateInputCodes(countryCode, bankCode));
         }
     }
 

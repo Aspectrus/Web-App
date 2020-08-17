@@ -1,46 +1,45 @@
 package webapp;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 class JsonFileReader {
 
 
-    List<String> GetISONames(String path)
+    List<String> getISONames(String path)
     {
-        ArrayList<String> AllIsoCodes = new ArrayList <String>();
+        ArrayList<String> allIsoCodes = new ArrayList<>();
 
         try {
 
             JSONParser parser = new JSONParser();
-            JSONArray AllCountriesData = (JSONArray)parser.parse(GetJsonFileReader(path));
+            JSONArray allCountriesData = (JSONArray)parser.parse(getJsonFileReader(path));
 
-           for (Object CountryData : AllCountriesData)
+           for (Object countryData : allCountriesData)
             {
-                JSONObject Country = (JSONObject) CountryData;
-                String ISO = (String) Country.get("alpha-2");
-                AllIsoCodes.add(ISO);
+                JSONObject country = (JSONObject) countryData;
+                String iso = (String) country.get("alpha-2");
+                allIsoCodes.add(iso);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
-        return AllIsoCodes;
+        return allIsoCodes;
     }
 
-    Reader GetJsonFileReader(String path)
-    {
+    Reader getJsonFileReader(String path) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream JsonStream = classLoader.getResourceAsStream(path);
-        Reader targetReader = new InputStreamReader(JsonStream);
-        return  targetReader;
+        InputStream jsonStream = classLoader.getResourceAsStream(path);
+        assert jsonStream != null;
+        return new InputStreamReader(jsonStream);
 
     }
 

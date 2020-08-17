@@ -1,3 +1,5 @@
+package testing;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -6,17 +8,17 @@ import webapp.StringFormatter;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class StringFormattingTest {
 
-    @Parameterized.Parameter(0)
-    public String CountryCode;
+    @Parameterized.Parameter()
+    public String countryCode;
     @Parameterized.Parameter(1)
-    public String BankCode;
+    public String bankCode;
     @Parameterized.Parameter(2)
-    public String Result;
+    public String result;
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
@@ -30,7 +32,7 @@ public class StringFormattingTest {
     @Test
     public void testIfFormattingIsDoneCorrectly() {
         StringFormatter stringFormatter = new StringFormatter();
-        assertEquals(Result, stringFormatter.FormatInput(BankCode, CountryCode));
+        assertEquals(result, stringFormatter.formatInput(bankCode, countryCode));
     }
 
 }

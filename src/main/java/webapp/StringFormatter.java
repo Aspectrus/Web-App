@@ -4,78 +4,67 @@ import java.util.ArrayList;
 
 public class StringFormatter {
 
-    public Integer HighestLength;
+    private Integer highestLength;
 
-    class NumberInfo
-    {
-        char Number;
-        int Length;
-        NumberInfo(char number, int length)
-        {
-            this.Number = number;
-            this.Length = length;
-        }
-    }
+    String formatRepeatingCharacters(ArrayList<NumberInfo> numberLengthList) {
+        StringBuilder result = new StringBuilder();
 
-    String FormatRepeatingCharacters(ArrayList<NumberInfo> NumberLengthList, String BankCode) {
-        String result ="";
+        for (NumberInfo numberInfo : numberLengthList) {
 
-        for (NumberInfo numberLength: NumberLengthList) {
-
-            if(numberLength.Length==HighestLength)
-            {
-                result+="("+(new String(new char[numberLength.Length]).replace('\u0000', numberLength.Number))+")";
-            }
-            else  result+=(new String(new char[numberLength.Length]).replace('\u0000', numberLength.Number));
+            if (numberInfo.length == highestLength) {
+                result.append("(").append(String.valueOf(numberInfo.number).repeat(numberInfo.length)).append(")");
+            } else result.append(String.valueOf(numberInfo.number).repeat(numberInfo.length));
         }
 
-        return result;
+        return result.toString();
     }
 
-    ArrayList<NumberInfo> GetNumbersInfoList(String BankCode) {
+    ArrayList<NumberInfo> getNumbersInfoList(String bankCode) {
 
 
-        ArrayList<NumberInfo> numbersInfoList = new ArrayList<NumberInfo>();
+        ArrayList<NumberInfo> numbersInfoList = new ArrayList<>();
 
 
-        char leftchar , rightchar = 0;
-        int  index;
-        int count = 1;
-        HighestLength =Integer.valueOf(2);
-        for(index = 0; index<BankCode.length()-1; index++)
-        {
+        char currentChar;
+        int index;
+        int count;
+        highestLength = 2;
 
-            leftchar = BankCode.charAt(index);
-            rightchar = BankCode.charAt(index+1);
-            if(leftchar==rightchar)
-            {
-                count++;
-            }
-            else
-            {
-                numbersInfoList.add(new NumberInfo(leftchar,count));
-                if(index+1!=BankCode.length())
-                {
-                    count=1;
+        for (index = 0; index < bankCode.length(); index++) {
+            currentChar = bankCode.charAt(index);
+
+            if (index == 0 || numbersInfoList.get(numbersInfoList.size() - 1).number != currentChar) {
+                numbersInfoList.add(new NumberInfo(currentChar, 1));
+            } else {
+                numbersInfoList.get(numbersInfoList.size() - 1).length++;
+
+                count = numbersInfoList.get(numbersInfoList.size() - 1).length;
+                if (count > highestLength) {
+                    highestLength = count;
                 }
             }
-            if(count>HighestLength)
-            {
-                HighestLength =Integer.valueOf(count);
-            }
         }
-        numbersInfoList.add(new NumberInfo(rightchar,count));
 
         return numbersInfoList;
 
     }
 
-    public String FormatInput(String BankCode, String CountryCode) {
+    public String formatInput(String bankCode, String countryCode) {
 
-        String result = CountryCode+" ";
-        ArrayList<NumberInfo> NumbersInfoList = GetNumbersInfoList(BankCode);
-        String FormattedBankCode = FormatRepeatingCharacters(NumbersInfoList, BankCode);
-        return result + FormattedBankCode;
-        }
-
+        String result = countryCode + " ";
+        ArrayList<NumberInfo> numbersInfoList = getNumbersInfoList(bankCode);
+        String formattedBankCode = formatRepeatingCharacters(numbersInfoList);
+        return result + formattedBankCode;
     }
+
+    static class NumberInfo {
+        char number;
+        int length;
+
+        NumberInfo(char number, int length) {
+            this.number = number;
+            this.length = length;
+        }
+    }
+
+}

@@ -8,20 +8,20 @@ import java.util.Properties;
 public class InputValidator {
 
 
-    private List<String> AllIsoCodes;
+    private final List<String> allIsoCodes;
 
 
 
     public InputValidator() {
 
-        Properties properties = GetProperties();
+        Properties properties = getProperties();
         String path = properties.getProperty("JsonPath");
         JsonFileReader jsonread = new JsonFileReader();
-        AllIsoCodes = jsonread.GetISONames(path);
+        allIsoCodes = jsonread.getISONames(path);
 
     }
 
-    Properties GetProperties()
+    Properties getProperties()
     {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream input = classLoader.getResourceAsStream("foo.properties");
@@ -34,25 +34,24 @@ public class InputValidator {
         return properties;
 
     }
-    public boolean ValidateInputCodes(String CountryCode, String BankCode)
+    public boolean validateInputCodes(String countryCode, String bankCode)
     {
-        Boolean CountryCodeCheck = ValidateCountryCode(CountryCode);
-        Boolean BankCodeCheck = ValidateBankCode(BankCode);
-        if(CountryCodeCheck&&BankCodeCheck) return  true;
-        else return  false;
+        Boolean countryCodeCheck = validateCountryCode(countryCode);
+        Boolean bankCodeCheck = validateBankCode(bankCode);
+        return countryCodeCheck && bankCodeCheck;
     }
-    private Boolean ValidateCountryCode(String CountryCode)
+    private Boolean validateCountryCode(String countryCode)
     {
-        for (String ISOCode: AllIsoCodes) {
-            if(ISOCode.compareTo(CountryCode)==0) return true;
+        for (String isoCode: allIsoCodes) {
+            if(isoCode.compareTo(countryCode)==0) return true;
         }
         return false;
     }
-    private Boolean ValidateBankCode(String BankCode)
+    private Boolean validateBankCode(String bankCode)
     {
-        if(BankCode.length()<2||BankCode.length()>20) return false;
+        if(bankCode.length()<2||bankCode.length()>20) return false;
         try {
-            Double.parseDouble(BankCode);
+            Double.parseDouble(bankCode);
             return true;
         } catch(NumberFormatException e){
             return false;

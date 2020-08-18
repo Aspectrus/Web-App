@@ -3,7 +3,7 @@ package testing;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import webapp.InputValidator;
+import webapp.functionality.InputValidator;
 
 import java.util.Arrays;
 import java.util.Collection;

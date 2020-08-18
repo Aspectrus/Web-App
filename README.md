@@ -2,8 +2,8 @@
 
 ## Before running:
 
--Go to Run/Debug Configurations and configure Tomcat server Home path. Path to the server provided or your own.
+- run in terminal `mvn clean package && java -jar ./target/web-app-1.0.jar`
 
--In Project structure add Web Facet resource and include it in the 'Banking_Web_App_war_exploded' artifact.
+- go to http://localhost:8080/app
 
--Now you can run the Web App.
+

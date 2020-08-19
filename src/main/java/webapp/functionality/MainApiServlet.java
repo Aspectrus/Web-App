@@ -1,6 +1,8 @@
 package webapp.functionality;
 
 
+import org.json.simple.parser.ParseException;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +11,13 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns="/Submit")
 public class MainApiServlet extends HttpServlet {
-    StringFormatter stringProcessor = new StringFormatter();
-    InputValidator inputValidator = new InputValidator();
+    StringFormatter stringFormatter;
+    InputValidator inputValidator;
+
+    public MainApiServlet() throws IOException, ParseException {
+         stringFormatter = new StringFormatter();
+         inputValidator = new InputValidator();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -22,7 +29,7 @@ public class MainApiServlet extends HttpServlet {
          if(!validationStatus) response.sendError(400);
          else {
              response.setContentType("text/plain");
-             String answer = stringProcessor.formatInput(bankcode, countrycode);
+             String answer = stringFormatter.formatInput(bankcode, countrycode);
              response.getWriter().write(answer);
          }
     }

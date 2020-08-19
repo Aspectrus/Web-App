@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import webapp.functionality.InputValidator;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -23,14 +24,15 @@ public class InputValidationTests {
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
-            Object[][] data = new Object[][]{{"LT", "05556894"},
+            Object[][] data = new Object[][]{
+                    {"LT", "05556894"},
                     {"US", "15897"},
                     {"DE", "15585568977"}};
             return Arrays.asList(data);
         }
 
         @Test
-        public void testValidFullCode() {
+        public void testValidFullCode() throws IOException {
             InputValidator inputValidator = new InputValidator();
             assertTrue(inputValidator.validateInputCodes(countryCode, bankCode));
         }
@@ -44,14 +46,15 @@ public class InputValidationTests {
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
-            Object[][] data = new Object[][]{{"L4T", "05556894"},
+            Object[][] data = new Object[][]{
+                    {"L4T", "05556894"},
                     {"US", "541a488"},
                     {"DE", "1"}};
             return Arrays.asList(data);
         }
 
         @Test
-        public void testInvalidFullCode() {
+        public void testInvalidFullCode() throws IOException {
             InputValidator inputValidator = new InputValidator();
             assertFalse(inputValidator.validateInputCodes(countryCode, bankCode));
         }

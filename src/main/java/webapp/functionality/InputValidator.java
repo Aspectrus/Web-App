@@ -1,5 +1,7 @@
 package webapp.functionality;
 
+import org.json.simple.parser.ParseException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -12,7 +14,7 @@ public class InputValidator {
 
 
 
-    public InputValidator() {
+    public InputValidator() throws IOException, ParseException {
 
         Properties properties = getProperties();
         String path = properties.getProperty("JsonPath");
@@ -21,18 +23,12 @@ public class InputValidator {
 
     }
 
-    Properties getProperties()
-    {
+    Properties getProperties() throws IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream input = classLoader.getResourceAsStream("json.properties");
         Properties properties = new Properties();
-        try {
-            properties.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        properties.load(input);
         return properties;
-
     }
     public boolean validateInputCodes(String countryCode, String bankCode)
     {

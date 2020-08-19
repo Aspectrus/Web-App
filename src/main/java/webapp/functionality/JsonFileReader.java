@@ -3,7 +3,9 @@ package webapp.functionality;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -14,11 +16,8 @@ import java.util.List;
 class JsonFileReader {
 
 
-    List<String> getISONames(String path)
-    {
+    List<String> getISONames(String path) throws IOException, ParseException {
         ArrayList<String> allIsoCodes = new ArrayList<>();
-
-        try {
 
             JSONParser parser = new JSONParser();
             JSONArray allCountriesData = (JSONArray)parser.parse(getJsonFileReader(path));
@@ -29,9 +28,7 @@ class JsonFileReader {
                 String iso = (String) country.get("alpha-2");
                 allIsoCodes.add(iso);
             }
-        } catch (Exception ignored) {
 
-        }
         return allIsoCodes;
     }
 

@@ -12,10 +12,10 @@ public class StringFormatter {
         StringBuilder result = new StringBuilder();
 
         for (NumberInfo numberInfo : numberLengthList) {
-
+            String repeatingNumbers = StringUtils.repeat(String.valueOf(numberInfo.number), numberInfo.length);
             if (numberInfo.length == highestLength) {
-                result.append("(").append(StringUtils.repeat(String.valueOf(numberInfo.number), numberInfo.length)).append(")");
-            } else result.append(StringUtils.repeat(String.valueOf(numberInfo.number), numberInfo.length));
+                result.append("(").append(repeatingNumbers).append(")");
+            } else result.append(repeatingNumbers);
         }
 
         return result.toString();

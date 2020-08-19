@@ -22,7 +22,8 @@ public class StringFormattingTest {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { "LT" , "055568994444", "LT 05556899(4444)" },
+        Object[][] data = new Object[][] {
+                { "LT" , "055568994444", "LT 05556899(4444)" },
                 { "US", "15897", "US 15897" },
                 { "DE", "1558555689777", "DE 1558(555)689(777)" },
                 { "DE", "7777", "DE (7777)" }};

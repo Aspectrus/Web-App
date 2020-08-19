@@ -1,5 +1,6 @@
 package testing;
 
+import org.json.simple.parser.ParseException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -32,7 +33,7 @@ public class InputValidationTests {
         }
 
         @Test
-        public void testValidFullCode() throws IOException {
+        public void testValidFullCode() throws IOException, ParseException {
             InputValidator inputValidator = new InputValidator();
             assertTrue(inputValidator.validateInputCodes(countryCode, bankCode));
         }
@@ -54,7 +55,7 @@ public class InputValidationTests {
         }
 
         @Test
-        public void testInvalidFullCode() throws IOException {
+        public void testInvalidFullCode() throws IOException, ParseException {
             InputValidator inputValidator = new InputValidator();
             assertFalse(inputValidator.validateInputCodes(countryCode, bankCode));
         }
